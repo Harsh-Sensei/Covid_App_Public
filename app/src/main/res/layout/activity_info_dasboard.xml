@@ -177,9 +177,10 @@
         android:text="@string/covid_updates"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.402"
+        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logout" />
+        app:layout_constraintTop_toBottomOf="@+id/logout"
+        app:layout_constraintVertical_bias="0.505" />
 
     <Button
         android:id="@+id/statewise_covid"
@@ -188,10 +189,10 @@
         android:text="@string/statewise_covid_updates"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.404"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/covid_update_button"
-        app:layout_constraintVertical_bias="0.304" />
+        app:layout_constraintVertical_bias="0.186" />
 
     <Button
         android:id="@+id/bluetoothDiscButton"
@@ -200,8 +201,17 @@
         android:text="Discover Devices"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.445"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/statewise_covid"
-        app:layout_constraintVertical_bias="0.444" />
+        app:layout_constraintVertical_bias="0.156" />
+
+    <Button
+        android:id="@+id/chartBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chart"
+        app:layout_constraintBottom_toTopOf="@+id/covid_update_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/age_txt2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

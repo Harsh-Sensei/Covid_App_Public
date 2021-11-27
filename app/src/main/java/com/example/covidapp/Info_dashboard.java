@@ -29,7 +29,7 @@ public class Info_dashboard extends AppCompatActivity {
     TextView edit,logout;
     GoogleSignInClient mGoogleSignInClient;
     TextView name_txt,gender_text,age_text,phone_text,health_status;
-
+    Button chart_button;
     Button discover;
 
     @Override
@@ -37,6 +37,8 @@ public class Info_dashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_dasboard);
         covid_button = (Button) findViewById(R.id.covid_update_button);
+
+        chart_button = (Button) findViewById(R.id.chartBtn);
 
         covid_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +55,12 @@ public class Info_dashboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Info_dashboard.this, bluetoothDiscovery.class));
+            }
+        });
+        chart_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Info_dashboard.this, dataRepresentation.class));
             }
         });
 

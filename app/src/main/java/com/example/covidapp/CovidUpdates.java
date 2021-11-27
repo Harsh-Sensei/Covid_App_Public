@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.io.* ;
 import java.net.* ;
 import java.util.*;
@@ -19,54 +21,17 @@ public class CovidUpdates extends AppCompatActivity{
 
         System.out.println("htg_sensei");
 
+        try
+        {
+            JSONObject root = new JSONObject(fetch_json_string());
 
 
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                try  {
-                    URL country_url = new URL("https://coronavirus-19-api.herokuapp.com/countries/india");
-
-                    URLConnection con=country_url.openConnection();
-
-                    InputStream country_stream = con.getInputStream();
-
-                    BufferedReader country_buffer = new BufferedReader(new InputStreamReader(country_stream));
-
-
-
-                    String line = country_buffer.readLine();
-
-                    // read each line and write to System.out
-                    line = line.substring(1, line.length()-1);           //remove curly brackets
-                    String[] keyValuePairs = line.split(",");              //split the string to create key-value pairs
-                    map = new HashMap<String,String>();
-
-                    for(String pair : keyValuePairs)                        //iterate over the pairs
-                    {
-                        String[] entry = pair.split(":");                   //split the pairs to get key and value
-
-                        map.put(entry[0].trim(),entry[1].trim());
-
-                    }
-
-
-                } catch (Exception e) {
-                    System.out.println("Caught htg exception");
-                    e.printStackTrace();
-                }
-
-
-            }
-        });
-
-        thread.start();
-        try {
-            thread.join();
-        }catch(Exception e){
-            System.out.println(e);
         }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+
 
         TextView tv1 = (TextView)findViewById(R.id.total_cases_id);
         tv1.setText(map.get("\"cases\""));
@@ -76,6 +41,53 @@ public class CovidUpdates extends AppCompatActivity{
 
 
 
+    }
+
+    public String fetch_json_string() {
+        final String[] json_string = {null};
+
+
+        Thread thread;
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL state_url = new URL("https://api.apify.com/v2/key-value-stores/toDWvRj1JpTXiM8FF/records/LATEST?disableRedirect=true");
+                    URLConnection con = state_url.openConnection();
+
+                    InputStream state_stream = con.getInputStream();
+
+                    BufferedReader state_buffer = new BufferedReader(new InputStreamReader(state_stream));
+
+                    String inputLine = null;
+
+                    StringBuffer response = new StringBuffer();
+                    while ((inputLine = state_buffer.readLine()) != null) {
+                        response.append(inputLine);
+                    }
+
+                    state_buffer.close();
+
+                    json_string[0] = response.toString();
+
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        thread.start();
+        try {
+            thread.join();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        System.out.println("Printing jsonstring");
+        System.out.println(json_string[0]);
+        return json_string[0];
     }
 
 }

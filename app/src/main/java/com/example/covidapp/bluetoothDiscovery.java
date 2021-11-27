@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.ParcelUuid;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -51,6 +52,8 @@ public class bluetoothDiscovery extends AppCompatActivity {
 
     public void discoverDevices(View v)
     {
+        //bluetoothList.clear();
+        System.out.println("sensei");
         bluetoothAdapter.startDiscovery();
     }
 
@@ -58,12 +61,19 @@ public class bluetoothDiscovery extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+            System.out.println("inside broad");
 
             if (BluetoothDevice.ACTION_FOUND.equals(action))
             {
                 BluetoothDevice bluetoothDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 bluetoothList.add(bluetoothDevice.getName());
+                //ParcelUuid[] uuids = bluetoothDevice.getUuids();
+
+                //System.out.print(bluetoothDevice.getName()+" : ");
+                //System.out.println(uuids);
+
                 bluetoothAdp.notifyDataSetChanged();
+                System.out.println("htg_sensei");
             }
 
         }
@@ -74,6 +84,5 @@ public class bluetoothDiscovery extends AppCompatActivity {
         super.onStart();
         IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(broadcastReceiver, intentFilter);
-
     }
 }
